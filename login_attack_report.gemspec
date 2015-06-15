@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- test/*`.split("\n")
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '~> 4.0.0'
-  s.add_dependency 'paper_trail', '~> 3.0.0'
-  s.add_dependency 'devise', '~> 3.2.2'
+  s.add_dependency 'rails', '>= 4.0.0'
+  s.add_dependency 'paper_trail', '>= 3.0.0'
+  s.add_dependency 'devise', '>= 3.2.2'
 end
