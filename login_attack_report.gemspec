@@ -1,25 +1,31 @@
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
-
-# Maintain your gem's version:
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'login_attack_report/version'
 
-# Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-  s.name          = 'login_attack_report'
-  s.version       = LoginAttackReport::VERSION
-  s.platform      = Gem::Platform::RUBY
-  s.authors       = ['taru m']
-  s.email         = ['TODO: Your email']
-  s.homepage      = 'https://github.com/taru-m/' + s.name
-  s.summary       = 'login attack report in Rails.'
-  s.description   = s.summary
-  s.license       = 'MIT'
+Gem::Specification.new do |spec|
+  spec.name          = 'login_attack_report'
+  spec.version       = LoginAttackReport3::VERSION
+  spec.platform      = Gem::Platform::RUBY
+  spec.authors       = ['taru m']
+  spec.email         = ['TODO: Write your email address']
+  spec.summary       = %q{login attack report in Rails.}
+  spec.description   = spec.summary
+  spec.homepage      = 'https://github.com/taru-m/' + spec.name
+  spec.license       = 'MIT'
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- test/*`.split("\n")
-  s.require_paths = ['lib']
+  spec.files         = `git ls-files -z`.split("\x0")
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
 
-  s.add_dependency 'rails', '>= 4.0.0'
-  s.add_dependency 'paper_trail', '>= 3.0.0'
-  s.add_dependency 'devise', '>= 3.2.2'
+  spec.required_rubygems_version = '>= 1.3.6'
+
+  spec.add_dependency 'rails', '>= 4.0.0'
+  spec.add_dependency 'paper_trail', '>= 3.0.0'
+  spec.add_dependency 'devise', '>= 3.2.2'
+
+  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rspec'
 end
