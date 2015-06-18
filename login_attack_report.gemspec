@@ -5,10 +5,10 @@ require 'login_attack_report/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'login_attack_report'
-  spec.version       = LoginAttackReport3::VERSION
+  spec.version       = LoginAttackReport::VERSION
   spec.platform      = Gem::Platform::RUBY
   spec.authors       = ['taru m']
-  spec.email         = ['TODO: Write your email address']
+  spec.email         = ['Write your email address']
   spec.summary       = %q{login attack report in Rails.}
   spec.description   = spec.summary
   spec.homepage      = 'https://github.com/taru-m/' + spec.name
