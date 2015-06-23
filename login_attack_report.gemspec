@@ -19,10 +19,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.required_rubygems_version = '>= 1.3.6'
+  spec.required_rubygems_version = '>= 1.9.0'
 
-  spec.add_dependency 'rails', '>= 4.0.0'
-  spec.add_dependency 'paper_trail', '>= 3.0.0'
+  spec.add_dependency 'activerecord', ['>= 3.0', '< 6.0']
+  spec.add_dependency 'activesupport', ['>= 3.0', '< 6.0']
+  spec.add_dependency 'paper_trail', ['>= 3.0', '< 6.0']
   spec.add_dependency 'devise', '>= 3.2.2'
 
   spec.add_development_dependency 'bundler', '~> 1.7'

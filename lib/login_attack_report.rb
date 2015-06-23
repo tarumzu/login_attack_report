@@ -1,4 +1,5 @@
-require "login_attack_report/version"
+require 'login_attack_report/version'
+require 'active_support'
 
 module LoginAttackReport
   # Your code goes here...
