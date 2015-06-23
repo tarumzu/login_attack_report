@@ -1,8 +1,7 @@
 require 'active_support/concern'
-require 'paper_trail'
 
 module LoginAttackReport
-  module LoginAttackReportConcern
+  module LoginAttackReportVersionConcern
     extend ::ActiveSupport::Concern
 
     module ClassMethods
@@ -80,7 +79,6 @@ module LoginAttackReport
             end
           end
         end
-
       end
     end
   end
