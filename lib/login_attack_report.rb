@@ -1,6 +1,13 @@
 require 'login_attack_report/version'
 require 'active_support'
+require 'active_record'
+require 'paper_trail'
+
+Dir[File.join(File.dirname(__FILE__), 'login_attack_report', '*.rb')].each do |file|
+  require File.join('login_attack_report', File.basename(file, '.rb'))
+end
 require 'login_attack_report/frameworks/active_record'
+require 'login_attack_report/frameworks/rails'
 
 module LoginAttackReport
   # Your code goes here...
@@ -10,5 +17,5 @@ module LoginAttackReport
 end
 
 ActiveSupport.on_load(:active_record) do
-  include PaperTrail::Model
+  include LoginAttackReport::Model
 end
