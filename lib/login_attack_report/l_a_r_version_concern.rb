@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module LoginAttackReport
-  module LoginAttackReportVersionConcern
+  module LARVersionConcern
     extend ::ActiveSupport::Concern
 
     module ClassMethods
