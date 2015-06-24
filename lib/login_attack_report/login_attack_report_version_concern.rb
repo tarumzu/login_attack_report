@@ -13,7 +13,7 @@ module LoginAttackReport
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
-          ).group(:item_id).having("count(item_id) > #{@@login_ok_limit}")
+          ).group(:item_id).having("count(item_id) > #{LoginAttackReport.login_ok_limit}")
       end
 
       def login_ng_limit_over(model)
@@ -24,7 +24,7 @@ module LoginAttackReport
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
-          ).group(:item_id).having("count(item_id) > #{@@login_ng_limit}")
+          ).group(:item_id).having("count(item_id) > #{LoginAttackReport.login_ng_limit}")
       end
 
       def ip_limit_over(model)
