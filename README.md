@@ -38,16 +38,22 @@ end
 
 モデル名をシンボルで渡すことで攻撃性のあるログインを判定します。
 
-ログイン成功回数のlimitを超えたユーザを抽出します。
+ログイン成功回数のlimitを超えたユーザを抽出します。 br
 ※ 異常に多い場合、どこかでID/パスワードが漏れている、もしくはIDが共有されている可能性あり
 ```ruby
     LoginAttackReport::LARVersion.login_ok_limit_over(:User)
 ```
 
-ログイン失敗回数のlimitを超えたユーザを抽出します。
+ログイン失敗回数のlimitを超えたユーザを抽出します。 br
 ※ 異常に多い場合、リスト型攻撃を受けている可能性あり
 ```ruby
     LoginAttackReport::LARVersion.login_ng_limit_over(:User)
+```
+
+（未実装）ログイン元同一ipのlimitを超えたユーザを抽出します。 br
+※ 失敗が多く、成功がいくつかあったら、攻撃が成功されている可能性あり
+```ruby
+    LoginAttackReport::LARVersion.ip_limit_over(:User)
 ```
 
 ## Contributing
