@@ -5,12 +5,7 @@ module LoginAttackReport
     extend ::ActiveSupport::Concern
 
     module ClassMethods
-      def login_ok_limit_over
-        # TODO config
-        model = :User
-        login_limit = 200
-        login_err_limit = 50
-
+      def login_ok_limit_over(model)
         PaperTrail::Version
           .where(item_type: model)
           .where(
@@ -18,15 +13,10 @@ module LoginAttackReport
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
-          ).group(:item_id).having("count(item_id) > #{login_limit}")
+          ).group(:item_id).having("count(item_id) > #{@@login_ok_limit}")
       end
 
-      def login_ng_limit_over
-        # TODO config
-        model = :User
-        login_limit = 200
-        login_err_limit = 50
-
+      def login_ng_limit_over(model)
         PaperTrail::Version
           .where(item_type: model)
           .where(
@@ -34,13 +24,10 @@ module LoginAttackReport
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
-          ).group(:item_id).having("count(item_id) > #{login_limit}")
+          ).group(:item_id).having("count(item_id) > #{@@login_ng_limit}")
       end
-      def ip_limit_over
-        # TODO config
-        model = :User
-        login_limit = 200
-        login_err_limit = 50
+
+      def ip_limit_over(model)
         alert_ip_limit_over = PaperTrail::Version
                               .where(item_type: model)
                               .where(
