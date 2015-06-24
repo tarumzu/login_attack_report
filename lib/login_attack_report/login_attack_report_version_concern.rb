@@ -21,7 +21,7 @@ module LoginAttackReport
           ).group(:item_id).having("count(item_id) > #{login_limit}")
       end
 
-      def alert_login_ng_limit_over
+      def login_ng_limit_over
         # TODO config
         model = :User
         login_limit = 200
@@ -36,7 +36,7 @@ module LoginAttackReport
             Time.now.prev_month.end_of_month
           ).group(:item_id).having("count(item_id) > #{login_limit}")
       end
-      def alert_ip_limit_over
+      def ip_limit_over
         # TODO config
         model = :User
         login_limit = 200
