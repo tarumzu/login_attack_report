@@ -14,4 +14,8 @@ module LoginAttackReport
 
   mattr_accessor :login_ng_limit
   @@login_ng_limit = 50
+
+  def self.setup
+    yield self
+  end
 end
