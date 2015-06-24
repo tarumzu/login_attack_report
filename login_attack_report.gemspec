@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_rubygems_version = '>= 1.9.0'
 
+  spec.add_dependency 'rails', ['>= 3.0', '< 6.0']
   spec.add_dependency 'activerecord', ['>= 3.0', '< 6.0']
   spec.add_dependency 'activesupport', ['>= 3.0', '< 6.0']
   spec.add_dependency 'paper_trail', ['>= 3.0', '< 6.0']

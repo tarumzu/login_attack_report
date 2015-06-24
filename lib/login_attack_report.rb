@@ -2,6 +2,7 @@ require 'login_attack_report/version'
 require 'active_support'
 require 'active_record'
 require 'paper_trail'
+require 'rails'
 
 Dir[File.join(File.dirname(__FILE__), 'login_attack_report', '*.rb')].each do |file|
   require File.join('login_attack_report', File.basename(file, '.rb'))

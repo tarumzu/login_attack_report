@@ -14,7 +14,7 @@ module LoginAttackReport
         PaperTrail::Version
           .where(item_type: model)
           .where(
-            'created_at >= ? and created_at <= ? and ' /
+            'created_at >= ? and created_at <= ? and ' \
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
@@ -30,7 +30,7 @@ module LoginAttackReport
         PaperTrail::Version
           .where(item_type: model)
           .where(
-            'created_at >= ? and created_at <= ? and ' /
+            'created_at >= ? and created_at <= ? and ' \
             'object_changes like \'%sign_in_count:%\'',
             Time.now.prev_month.beginning_of_month,
             Time.now.prev_month.end_of_month
@@ -44,9 +44,9 @@ module LoginAttackReport
         alert_ip_limit_over = PaperTrail::Version
                               .where(item_type: model)
                               .where(
-                                'created_at >= ? and created_at <= ? and ' /
-                                '(object_changes like \'%sign_in_count:%\' or ' /
-                                  'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\'' /
+                                'created_at >= ? and created_at <= ? and ' \
+                                '(object_changes like \'%sign_in_count:%\' or ' \
+                                  'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\'' \
                                 ')',
                                 Time.now.prev_month.beginning_of_month,
                                 Time.now.prev_month.end_of_month
