@@ -9,12 +9,16 @@ end
 require 'login_attack_report/frameworks/active_record'
 
 module LoginAttackReport
+
+  # login ok limit
   mattr_accessor :login_ok_limit
   @@login_ok_limit = 200
 
+  # login ng limit
   mattr_accessor :login_ng_limit
   @@login_ng_limit = 50
 
+  # config/initializers/login_attack_report.rb
   def self.setup
     yield self
   end

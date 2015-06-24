@@ -1,12 +1,16 @@
 # LoginAttackReport
 
-TODO: Write a gem description
+攻撃性のあるログインを判定します。
 
 ## Installation
 
 Add this line to your application's Gemfile:
+'devise' and 'paper_trail' is required
 
 ```ruby
+gem 'devise'
+gem 'paper_trail'
+
 gem 'login_attack_report'
 ```
 
@@ -18,9 +22,33 @@ Or install it yourself as:
 
     $ gem install login_attack_report
 
+## Configuring
+
+/config/initializers/login_attack_report.rb
+```ruby
+LoginAttackReport.setup do |config|
+  # ログイン成功回数リミット
+  config.login_ok_limit = 200
+  # ログイン失敗回数リミット
+  config.login_ng_limit = 50
+end
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+モデル名をシンボルで渡すことで攻撃性のあるログインを判定します。
+
+ログイン成功回数のlimitを超えたユーザを抽出します。
+※ 異常に多い場合、どこかでID/パスワードが漏れている、もしくはIDが共有されている可能性あり
+```ruby
+    LoginAttackReport::LARVersion.login_ok_limit_over(:User)
+```
+
+ログイン失敗回数のlimitを超えたユーザを抽出します。
+※ 異常に多い場合、リスト型攻撃を受けている可能性あり
+```ruby
+    LoginAttackReport::LARVersion.login_ng_limit_over(:User)
+```
 
 ## Contributing
 
