@@ -24,7 +24,15 @@ Or install it yourself as:
 
 ## Configuring
 
-/config/initializers/login_attack_report.rb
+・models
+app/models/user.rb
+```ruby
+  devise ... , :lockable # enable devise lockable and add table column 'failed_attempts'
+  has_paper_trail  # enable paper_trail
+```
+
+・initializers
+config/initializers/login_attack_report.rb
 ```ruby
 LoginAttackReport.setup do |config|
   # ログイン成功回数リミット
