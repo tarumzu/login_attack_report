@@ -24,14 +24,15 @@ Or install it yourself as:
 
 ## Configuring
 
-・models
+・models  
 app/models/user.rb
 ```ruby
   devise ... , :lockable # enable devise lockable and add table column 'failed_attempts'
   has_paper_trail  # enable paper_trail
 ```
 
-・initializers
+
+・initializers  
 config/initializers/login_attack_report.rb
 ```ruby
 LoginAttackReport.setup do |config|
@@ -52,11 +53,13 @@ end
     LoginAttackReport::LARVersion.login_ok_limit_over(:User)
 ```
 
+
 前月のログイン失敗回数のlimitを超えたユーザを抽出します。  
 ※ 異常に多い場合、リスト型攻撃を受けている可能性あり
 ```ruby
     LoginAttackReport::LARVersion.login_ng_limit_over(:User)
 ```
+
 
 （未実装）前月のログイン元同一ipのlimitを超えたユーザを抽出します。  
 ※ 失敗が多く、成功がいくつかあったら、攻撃が成功されている可能性あり
