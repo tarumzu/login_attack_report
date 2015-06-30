@@ -34,18 +34,15 @@ module LoginAttackReport
                               .where(item_type: model)
                               .where(
                                 'created_at >= ? and created_at <= ? and '\
-                                '(object_changes like \'%sign_in_count:%\' or '\
-                                  '(object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and '\
-                                    'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and '\
-                                    'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\''\
-                                  ')'\
+                                '(object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and '\
+                                  'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and '\
+                                  'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\''\
                                 ')',
                                 Time.now.prev_month.beginning_of_month,
                                 Time.now.prev_month.end_of_month
                               )
 
         if alert_ip_limit_over.present?
-          ok_hash = Hash.new({})
           ng_hash = Hash.new({})
           alert_ip_limit_over.find_each do |version|
             # アクセス元ipアドレス取得
@@ -54,21 +51,15 @@ module LoginAttackReport
             else
               current_sign_in_ip = YAML.load(version.object)['current_sign_in_ip']
             end
-            # ログイン成功回数取得
-            if /sign_in_count/ =~ version.object_changes
-              if ok_hash[current_sign_in_ip].present?
-                ok_hash[current_sign_in_ip] += 1
-              else
-                ok_hash[current_sign_in_ip] = 1
-              end
-            # ログイン失敗回数取得
+            if ng_hash[current_sign_in_ip].present?
+              ng_hash[current_sign_in_ip] += 1
             else
-              if ng_hash[current_sign_in_ip].present?
-                ng_hash[current_sign_in_ip] += 1
-              else
-                ng_hash[current_sign_in_ip] = 1
-              end
+              ng_hash[current_sign_in_ip] = 1
             end
+          end
+
+          if 
+
           end
         end
       end

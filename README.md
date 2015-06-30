@@ -37,9 +37,11 @@ config/initializers/login_attack_report.rb
 ```ruby
 LoginAttackReport.setup do |config|
   # ログイン成功回数リミット
-  config.login_ok_limit = 200
+  config.login_ok_limit = 100
   # ログイン失敗回数リミット
   config.login_ng_limit = 50
+  # 同一IPログイン失敗回数リミット
+  config.same_ip_login_ng_limit = 100
 end
 ```
 
@@ -62,7 +64,7 @@ end
   
 
 （未実装）前月のログイン元同一ipのlimitを超えたユーザを抽出します。  
-※ 失敗が多く、成功がいくつかあったら、攻撃が成功されている可能性あり
+※ 同一ipでログイン失敗回数が多かったら、攻撃されている可能性あり
 ```ruby
     LoginAttackReport::LARVersion.ip_limit_over(:User)
 ```
