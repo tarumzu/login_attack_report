@@ -30,6 +30,7 @@ module LoginAttackReport
       end
 
       def ip_limit_over(model)
+        ips = {}
         alert_ip_limit_over = PaperTrail::Version
                               .where(item_type: model)
                               .where(
@@ -57,11 +58,11 @@ module LoginAttackReport
               ng_hash[current_sign_in_ip] = 1
             end
           end
-
-          if 
-
+          ng_hash.each do |key, ng_count|
+            ips[key] = ng_count if ng_count.to_i > LoginAttackReport.same_ip_login_ng_limit
           end
         end
+        ips
       end
     end
   end
