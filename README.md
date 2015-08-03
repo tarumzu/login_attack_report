@@ -52,15 +52,19 @@ end
 前月のログイン成功回数のlimitを超えたユーザを抽出します。  
 ※ 異常に多い場合、どこかでID/パスワードが漏れている、もしくはIDが共有されている可能性あり
 ```ruby
-    # @return ActiveRecord::Relation::ActiveRecord_Relation_PaperTrail_Version
+    example:
+    # @return ActiveRecord::Relation::ActiveRecord_Relation_PaperTrail_Version. 'attack_count' you can confirm the number of attacks.
     LoginAttackReport::LARVersion.login_ok_limit_over(:User)
+
+    LoginAttackReport::LARVersion.login_ok_limit_over(:User).first.attack_count
 ```
   
 
 前月のログイン失敗回数のlimitを超えたユーザを抽出します。  
 ※ 異常に多い場合、リスト型攻撃を受けている可能性あり
 ```ruby
-    # @return ActiveRecord::Relation::ActiveRecord_Relation_PaperTrail_Version
+    example:
+    # @return ActiveRecord::Relation::ActiveRecord_Relation_PaperTrail_Version. 'attack_count' you can confirm the number of attacks.
     LoginAttackReport::LARVersion.login_ng_limit_over(:User)
 ```
   
@@ -68,6 +72,7 @@ end
 前月のログイン元同一ipのlimitを超えたIPアドレスの一覧を抽出します。  
 ※ 同一ipでログイン失敗回数が多かったら、攻撃されている可能性あり
 ```ruby
+    example:
     # @return Hash IPs list {ip: count, ...}
     LoginAttackReport::LARVersion.ip_limit_over(:User)
 ```

@@ -7,26 +7,28 @@ module LoginAttackReport
     module ClassMethods
       def login_ok_limit_over(model)
         PaperTrail::Version
-          .where(item_type: model)
+          .where(item_type: model) \
           .where(
-            'created_at >= ? and created_at <= ? and '\
-            'object_changes like \'%sign_in_count:%\'',
-            Time.now.prev_month.beginning_of_month,
-            Time.now.prev_month.end_of_month
-          ).group(:item_id).having('count(item_id) > ?', LoginAttackReport.login_ok_limit)
+            'created_at >= ? and created_at <= ? and ' \
+            + 'object_changes like \'%sign_in_count:%\'' \
+            , Time.now.prev_month.beginning_of_month \
+            , Time.now.prev_month.end_of_month
+          ).select('versions.*, count(item_id) as attack_count') \
+          .group(:item_id).having('count(item_id) > ?', LoginAttackReport.login_ok_limit)
       end
 
       def login_ng_limit_over(model)
         PaperTrail::Version
           .where(item_type: model)
           .where(
-            'created_at >= ? and created_at <= ? and '\
-            'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and '\
-            'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and '\
-            'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\'',
-            Time.now.prev_month.beginning_of_month,
-            Time.now.prev_month.end_of_month
-          ).group(:item_id).having('count(item_id) > ?', LoginAttackReport.login_ng_limit)
+            'created_at >= ? and created_at <= ? and ' \
+            + 'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and ' \
+            + 'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and ' \
+            + 'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\'' \
+            , Time.now.prev_month.beginning_of_month \
+            , Time.now.prev_month.end_of_month
+          ).select('versions.*, count(item_id) as attack_count') \
+          .group(:item_id).having('count(item_id) > ?', LoginAttackReport.login_ng_limit)
       end
 
       def ip_limit_over(model)
@@ -35,10 +37,10 @@ module LoginAttackReport
                               .where(item_type: model)
                               .where(
                                 'created_at >= ? and created_at <= ? and '\
-                                '(object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and '\
-                                  'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and '\
-                                  'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\''\
-                                ')',
+                                + '(object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- _\n- 0%\' and '\
+                                  + 'object_changes not like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:\n- __\n- 0%\' and '\
+                                  + 'object_changes like \'--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nfailed_attempts:%\''\
+                                + ')',
                                 Time.now.prev_month.beginning_of_month,
                                 Time.now.prev_month.end_of_month
                               )
